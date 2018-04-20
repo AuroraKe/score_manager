@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.dao.ClassesMapper">
+	<!-- public boolean insert(Classes classes) -->
+	<insert id="insert" parameterType="com.neu.bean.Classes">
+		insert into classes(class_name) values(#{class_name})
+	</insert>
+	
+	<!-- public List<Classes> selectAll() -->
+	<!-- 自定义返回值结果类型 -->
+	<resultMap type="com.neu.bean.Classes" id="Classes">
+		<!-- 
+			id可以定义主键列，result定义普通列
+			column：数据库中表的字段
+			property：JavaBean的属性名
+		 -->
+		<id property="class_id" column="class_id"/>
+		<result property="class_name" column="class_name"/>
+	</resultMap>
+	<select id="selectAll" resultMap="Classes">
+		select class_id, class_name from classes
+	</select>
+	
+	<!-- public void deleteById(@Param("class_id")Integer classId) -->
+	<delete id="deleteById" parameterType="int">
+		delete from classes where class_id = #{class_id}
+	</delete>
+	
+	<!-- public void updateById(@Param("class_id")Integer classId) -->
+	<update id="updateById" parameterType="com.neu.bean.Classes">
+		update classes set class_name = #{class_name} where class_id = #{class_id}
+	</update>
+	
+	<!-- public List<String> selectClassName() -->
+	<select id="selectClassName" resultType="java.lang.String">
+		select class_name from classes
+	</select>
+</mapper>

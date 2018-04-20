@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.dao.TeacherMapper">
+	<!-- public List<Teacher> selectTeacherByName(String college_name, String teacher_name) -->
+	<resultMap type="com.neu.bean.Teacher" id="teacher">
+		<id property="teacher_id" column="teacher_id"/>
+		<result property="teacher_name" column="teacher_name"/>
+		<!-- <result property="college_id" column="college_id"/> -->
+		<association property="college" select="com.neu.dao.CollegeMapper.selectById" column="college_id">
+		</association>
+	</resultMap>
+	<select id="selectByName" resultMap="teacher">
+		select * from teacher
+		<where>
+			<if test="filter_college != 0">
+				college_id = #{filter_college}
+			</if>
+			<if test="teacher_name != null">
+				and teacher_name like "%${teacher_name}%"
+			</if>
+		</where>
+	</select>
+	
+	<!-- public void insert(Teacher teacher) -->
+	<insert id="insert">
+		insert into teacher(teacher_name, college_id) values(#{teacher_name}, #{college_id})
+	</insert>
+	
+	<!-- public void deleteById(int id) -->
+	<delete id="deleteById">
+		delete from teacher where teacher_id = #{teacher_id}
+	</delete>
+	
+	<!-- public void update(@Param("teacher_name")String teacherName, @Param("college_id")int collegeId, 
+			@Param("teacher_id")int teacherId) -->
+	<update id="update">
+		update teacher set teacher_name = #{teacher_name}, college_id = #{college_id} 
+		where teacher_id = #{teacher_id}
+	</update>
+</mapper>

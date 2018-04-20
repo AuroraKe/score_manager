@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.dao.CollegeMapper">
+	<!-- public List<String> selectAllCollegeName() -->
+	<select id="selectAllCollegeName" resultType="java.lang.String">
+		select college_name from college
+	</select>
+	
+	<!-- public List<College> selectAllCollege(); -->
+	<resultMap type="com.neu.bean.College" id="college">
+		<!-- 
+			id可以定义主键列，result定义普通列
+			column：数据库中表的字段
+			property：JavaBean的属性名
+		 -->
+		<id property="college_id" column="college_id"/>
+		<result property="college_name" column="college_name"/>
+	</resultMap>
+	<select id="selectAllCollege" resultMap="college">
+		select college_id, college_name from college
+	</select>
+	
+	<!-- public String selectNameById(int college_id) -->
+	<select id="selectById" resultMap="college">
+		select college_id, college_name from college where college_id = #{college_id}
+	</select>
+</mapper>

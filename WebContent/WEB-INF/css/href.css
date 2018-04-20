@@ -1,0 +1,20 @@
+a:link {
+	color: blue;
+	text-decoration: none;
+} /*链接未激活的样式*/
+a:visited {
+	color: blue;
+	text-decoration: none;
+} /*访问后的样式*/
+a {
+	font-size:medium;
+}
+
+a:hover {
+	color: #00ffff;
+	text-decoration: underline;
+} /*鼠标覆盖后的样式*/
+a:active {
+	color: green;
+	text-decoration: underline;
+} /*鼠标点击时（未放鼠标前）*/
